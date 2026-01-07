@@ -3,7 +3,9 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Category, NewsBriefing } from "../types";
 
 export const fetchNewsBriefing = async (category: Category): Promise<NewsBriefing> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  // Cast to any to handle CI environments where process.env types might not be fully populated
+  const apiKey = (process.env as any).API_KEY;
+  const ai = new GoogleGenAI({ apiKey });
   const modelName = 'gemini-3-flash-preview';
   
   const prompt = `Find the absolute latest, most significant news item in the category of ${category}. 
