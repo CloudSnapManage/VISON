@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Echoes: STARK OS</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,6 +18,9 @@
         overflow: hidden;
         background-color: #000;
         font-family: 'Roboto Mono', monospace;
+        position: fixed;
+        width: 100%;
+        height: 100%;
       }
       .font-orbitron { font-family: 'Orbitron', sans-serif; }
       canvas {
@@ -71,13 +74,33 @@
       .hud-bracket-bl { border-bottom: 3px solid var(--stark-cyan); border-left: 3px solid var(--stark-cyan); }
       .hud-bracket-br { border-bottom: 3px solid var(--stark-cyan); border-right: 3px solid var(--stark-cyan); }
       
-      /* Animation for the reticle */
       .reticle-spin {
         animation: spin-slow 4s linear infinite;
       }
       @keyframes spin-slow {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
+      }
+
+      /* Hide UI on very small portrait screens or provide warning */
+      @media (orientation: portrait) and (max-width: 600px) {
+        .portrait-warning {
+          display: flex;
+        }
+      }
+      .portrait-warning {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 9999;
+        color: var(--stark-cyan);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        font-family: 'Orbitron', sans-serif;
       }
     </style>
     <!-- MediaPipe Tasks Vision -->
@@ -91,14 +114,21 @@
     "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
     "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
     "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.5.0",
-    "three": "https://esm.sh/three@^0.182.0"
+    "three": "https://esm.sh/three@^0.182.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "vite": "https://esm.sh/vite@^7.3.1"
   }
 }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
-    <video id="camera-visor" autoplay playsinline></video>
+    <div class="portrait-warning">
+      <div class="text-4xl mb-4">🔄</div>
+      <h2 class="text-xl font-bold uppercase tracking-widest">Rotation Required</h2>
+      <p class="mt-4 opacity-70 text-sm font-mono uppercase">STARK OS optimized for landscape visor mode. Please rotate your device.</p>
+    </div>
+    <video id="camera-visor" autoplay playsinline muted></video>
     <div class="visor-overlay"></div>
     <div class="scan-line"></div>
     <div id="root"></div>
