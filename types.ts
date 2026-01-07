@@ -15,19 +15,11 @@ export interface NewsBriefing {
   keyTakeaways: string[];
   interestingFact: string;
   sourceUrls: string[];
-}
-
-// Added NewsItem interface to support the QuizModal component
-export interface NewsItem {
-  id: string;
-  category: Category;
-  title: string;
-  summary: string;
+  // Quiz integration
   question: string;
   options: string[];
   correctAnswer: number;
   explanation: string;
-  sourceUrls: string[];
 }
 
 export interface GameState {
@@ -35,6 +27,7 @@ export interface GameState {
   clearedNodes: number;
   totalNodes: number;
   activeBriefing: NewsBriefing | null;
+  activeQuiz: NewsBriefing | null;
   loading: boolean;
   gameStarted: boolean;
   archive: NewsBriefing[];
