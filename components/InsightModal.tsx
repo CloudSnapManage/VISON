@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { NewsBriefing } from '../types';
 
@@ -86,7 +85,7 @@ const InsightModal: React.FC<InsightModalProps> = ({ briefing, onClose }) => {
                       rel="noopener noreferrer" 
                       className="text-[10px] text-cyan-500/70 hover:text-cyan-400 flex items-center gap-2 truncate"
                     >
-                      > {new URL(url).hostname}
+                      {'>'} {new URL(url).hostname}
                     </a>
                   ))}
                 </div>

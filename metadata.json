@@ -1,6 +1,7 @@
-
 {
   "requestFramePermissions": [
     "camera"
-  ]
+  ],
+  "name": "Echoes: STARK OS HUD",
+  "description": "A futuristic holographic news intelligence interface with gesture-based navigation."
 }
